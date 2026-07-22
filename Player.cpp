@@ -3,6 +3,7 @@
 #include "Engine/Debug.h"
 #include "TestScene.h"
 #include "Engine/Input.h"
+#include"Engine/SphereCollider.h"
 
 namespace
 {
@@ -45,7 +46,7 @@ namespace
 	std::vector<std::vector<int>>gmap;
 }
 Player::Player(GameObject* parent)
-	:GameObject(parent), hIdleModel_(-1),hWalkModel_(-1){
+	:GameObject(parent,"Player"), hIdleModel_(-1), hWalkModel_(-1) {
 	//swordDirには、初期方向として、ローカルモデルの剣の根っこから
 	//先端までのベクトルとして（0,1,0)を代入しておく
 	//初期位置は原点
@@ -56,7 +57,7 @@ void Player::Initialize()
 	hIdleModel_ = Model::Load("Idle.fbx");
 	hWalkModel_ = Model::Load("Walk.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 59, 1.0);
-	Model::SetAnimFrame(hWalkModel_, 0, 117, 1.0);
+	Model::SetAnimFrame(hWalkModel_, 0, 119, 1.0);
 	if (ground_ != nullptr)
 	{
 		gmap = ground_->GetMapData();
@@ -65,6 +66,8 @@ void Player::Initialize()
 	{
 		Debug::Log("Ground is not set for Player.");
 	}
+	Collider* collider = new SphereCollider({ 0,0,0 }, 0.25f);
+	AddCollider(collider);
 }
 
 void Player::Update()
@@ -165,8 +168,8 @@ void Player::Update()
 	XMFLOAT3 wpos = transform_.position_;
 	
 	gmap = ground_->GetMapData();
-	int mapX = (int)((wpos.x) + 10 / 2);
-	int mapZ = (int(wpos.z) + 10 / 2);
+	int mapX = (int)((10 - wpos.x) / 2);
+	int mapZ = (int)((wpos.z + 10) / 2);
 	if (gmap[mapZ][mapX] == 1)
 	{
 		pos = pos - SPEED * move;

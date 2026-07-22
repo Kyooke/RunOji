@@ -2,16 +2,20 @@
 #include "Engine/GameObject.h"
 #include<vector>
 
-
-class Ground :
+enum FoodType
+{
+	FOODTYPE_NORMAL,
+	FOODTYPE_POWER,
+	FOODTYPE_MAX
+};
+class Food :
 	public GameObject
 {
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	Ground(GameObject* parent);
-
-	std::vector<std::vector<int>>GetMapData() { return mapData_; }
+	Food(GameObject* parent);
+	~Food();
 	//初期化
 	void Initialize() override;
 
@@ -23,15 +27,17 @@ public:
 
 	//開放
 	void Release() override;
+	void SetFoodType(FoodType type);
+	void OnCollision(GameObject* pTarget)override;
+	int GetFoodNumber();
+	
+	int KillNum = 0;
 private:
-	int hGround;
-	int hBrock;
-	int hEsa;
-	int hPesa;
+	FoodType type_;
+	int hModel_;
+	int score_;
 
 	std::vector<std::vector<int>>mapData_;
-	std::vector<std::vector<int>>mapObj_;
-
 	int mapWidth_;
 	int mapHeight_;
 };

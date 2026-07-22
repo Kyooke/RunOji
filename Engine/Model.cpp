@@ -1,5 +1,8 @@
 #include "Global.h"
 #include "Model.h"
+#include "Debug.h"
+
+#include <string>
 
 //3Dモデル（FBXファイル）を管理する
 namespace Model
@@ -87,6 +90,7 @@ namespace Model
 		{
 			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame);
 		}
+
 	}
 
 

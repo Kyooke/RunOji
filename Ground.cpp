@@ -1,12 +1,13 @@
 #include "Ground.h"
 #include "Engine/Model.h"
-
+#include"Engine/CsvReader.h"
+#include"Food.h"
 
 namespace
 {
 	using std::vector;
 	int model_t = -1;
-	vector<vector<int>>mapData =
+	/*vector<vector<int>>mapData =
 	{
 		{1,1,1,1,1,1,1,1,1,1},
 		{1,0,0,0,1,0,0,0,0,1},
@@ -18,18 +19,48 @@ namespace
 		{1,0,0,0,0,0,0,1,0,1},
 		{1,0,1,1,1,1,0,0,0,1},
 		{1,1,1,1,1,1,1,1,1,1},
-	};
+	};*/
 }
 
 Ground::Ground(GameObject* parent)
+:hGround(-1),hBrock(-1),hEsa(-1),hPesa(-1), mapWidth_(-1), mapHeight_(-1)
 {
-	mapData_ = mapData;
+	CsvReader csvData;
+	csvData.Load("map.csv");
+	mapWidth_ = csvData.GetWidth();
+	mapHeight_ = csvData.GetHeight();
+	mapData_ = vector<vector<int>>(mapHeight_, vector<int>(mapWidth_, 0));
+	for (int x = 0;x < mapWidth_;x++)
+	{
+		for (int y = 0;y < mapHeight_;y++)
+		{
+			mapData_[y][x] = csvData.GetValue(x, y);
+		}
+	}
+
+	for (int x = 0;x < x +mapWidth_;x++)
+	{
+		for (int y = 0;y < y+mapHeight_;y++)
+		{
+			mapObj_ = vector<vector<int>>(mapHeight_, vector<int>(mapWidth_, 0));
+			Food* food = (Food*)Instantiate<Food>(this);
+			food->SetPosition({ 10.0f - x * 2 - 1,.0f,y * 2 - 9.0f });
+			if (mapData_[y][x] == 1)
+			{
+				food->SetFoodType(FoodType::FOODTYPE_NORMAL);
+			}
+			if (mapData_[y][x] != 1 && mapData_[y][x] != 2)
+			{
+				food->SetFoodType(FoodType::FOODTYPE_NORMAL);
+			}
+		}
+	}
 }
 
 void Ground::Initialize()
 {
 	//transform_.scale_ = { 40, 1, 40 };
-	hSilly = Model::Load("Ground2.fbx");
+	hGround = Model::Load("Ground2.fbx");
 	hBrock = Model::Load("Block.fbx");
 }
 
@@ -39,8 +70,8 @@ void Ground::Update()
 
 void Ground::Draw()
 {
-	Model::SetTransform(hSilly, transform_);
-	Model::Draw(hSilly);
+	Model::SetTransform(hGround, transform_);
+	Model::Draw(hGround);
 	for (int j = 0;j < 10;j++)
 	{
 		for (int i = 0;i < 10;i++)
