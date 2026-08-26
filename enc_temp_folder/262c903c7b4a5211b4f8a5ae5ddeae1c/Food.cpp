@@ -36,11 +36,11 @@ void Food::SetFoodType(FoodType type)
 {
 	 type_ = type;
 
-	 if (type_ == FOODTYPE_NORMAL)
+	 if (type_ == FoodType::FOODTYPE_NORMAL)
 	 {
 		 hModel_ = Model::Load("esa.fbx");
 	 }
-	 else if (type_ == FOODTYPE_POWER)
+	 else if (type_ == FoodType::FOODTYPE_POWER)
 	 {
 		 hModel_ = Model::Load("Pesa.fbx");
 	 }
@@ -49,9 +49,9 @@ void Food::SetFoodType(FoodType type)
 
 void Food::OnCollision(GameObject* pTarget)
 {
-	if (type_ == FOODTYPE_NORMAL)
+	if (type_ == FoodType::FOODTYPE_NORMAL)
 		score_ += 1;
-	if (type_ = FOODTYPE_POWER)
+	if (type_ = FOODTYPE_NORMAL)
 		score_ += 5;
 
 	KillMe();

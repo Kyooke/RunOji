@@ -3,6 +3,7 @@
 #include "Ground.h"
 #include "Engine/Camera.h"
 #include "Engine/Text.h"
+#include "Food.h"
 
 namespace
 {
@@ -32,13 +33,14 @@ void TestScene::Initialize()
 //XV
 void TestScene::Update()
 {
+	 Score =food_->GetScore();
 }
 
 //•`‰æ
 void TestScene::Draw()
 {
 	std::string scrText;
-	scrText = "SCORE:" + std::to_string(myScore);
+	scrText = "SCORE:" + std::to_string(Score);
 	pText_->Draw(20, 20, scrText.c_str());
 }
 

@@ -2,7 +2,6 @@
 #include "Engine/GameObject.h"
 #include<vector>
 
-
 class Ground :
 	public GameObject
 {

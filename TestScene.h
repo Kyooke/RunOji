@@ -3,6 +3,8 @@
 #include "Engine/Model.h"
 
 class Text;
+
+class Food;
 //テストシーンを管理するクラス
 class TestScene : public GameObject
 {
@@ -24,5 +26,8 @@ public:
 	void Release() override;
 	
 private:
+
+	int Score = 0;
 	Text* pText_;
+	Food* food_;
 };

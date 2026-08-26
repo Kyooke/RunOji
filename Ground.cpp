@@ -23,31 +23,37 @@ namespace
 }
 
 Ground::Ground(GameObject* parent)
-:hGround(-1),hBrock(-1),hEsa(-1),hPesa(-1), mapWidth_(-1), mapHeight_(-1)
+	:hGround(-1), hBrock(-1), hEsa(-1), hPesa(-1), mapWidth_(-1), mapHeight_(-1)
 {
 	CsvReader csvData;
 	csvData.Load("map.csv");
 	mapWidth_ = csvData.GetWidth();
 	mapHeight_ = csvData.GetHeight();
+
+	// 配列のサイズを確保
 	mapData_ = vector<vector<int>>(mapHeight_, vector<int>(mapWidth_, 0));
-	for (int x = 0;x < mapWidth_;x++)
+	mapObj_ = vector<vector<int>>(mapHeight_, vector<int>(mapWidth_, 0));
+
+	// 1. CSV からデータの読み込み
+	for (int y = 0; y < mapHeight_; y++)
 	{
-		for (int y = 0;y < mapHeight_;y++)
+		for (int x = 0; x < mapWidth_; x++)
 		{
 			mapData_[y][x] = csvData.GetValue(x, y);
 		}
 	}
 
-	for (int x = 0;x < x +mapWidth_;x++)
+	// 2. オブジェクト（Food）の生成ループ
+	for (int y = 0; y < mapHeight_; y++) 
 	{
-		for (int y = 0;y < y+mapHeight_;y++)
+		for (int x = 0; x < mapWidth_; x++) 
 		{
-			mapObj_ = vector<vector<int>>(mapHeight_, vector<int>(mapWidth_, 0));
 			Food* food = (Food*)Instantiate<Food>(this);
-			food->SetPosition({ 10.0f - x * 2 - 1,.0f,y * 2 - 9.0f });
-			if (mapData_[y][x] == 1)
+			food->SetPosition({ 10.0f - x * 2 - 1, 0.0f, y * 2 - 9.0f });
+
+			if (mapData_[y][x] == 2)
 			{
-				food->SetFoodType(FoodType::FOODTYPE_NORMAL);
+				food->SetFoodType(FoodType::FOODTYPE_POWER);
 			}
 			if (mapData_[y][x] != 1 && mapData_[y][x] != 2)
 			{

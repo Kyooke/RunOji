@@ -29,13 +29,12 @@ public:
 	void Release() override;
 	void SetFoodType(FoodType type);
 	void OnCollision(GameObject* pTarget)override;
-	int GetFoodNumber();
+	int GetScore() { return score_; }
 	
-	int KillNum = 0;
 private:
 	FoodType type_;
 	int hModel_;
-	int score_;
+	int score_ = 0;
 
 	std::vector<std::vector<int>>mapData_;
 	int mapWidth_;
