@@ -51,7 +51,7 @@ void Food::OnCollision(GameObject* pTarget)
 {
 	if (type_ == FOODTYPE_NORMAL)
 		score_ += 1;
-	if (type_ = FOODTYPE_POWER)
+	if (type_ == FOODTYPE_POWER)
 		score_ += 5;
 
 	KillMe();

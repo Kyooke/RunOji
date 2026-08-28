@@ -105,16 +105,6 @@ void Player::Update()
 	PLAYER_DIRECTION old = pdirection;
 	if (pstate != PLAYER_STATE::PLAYER_TURN)
 	{
-		if (Input::IsKey(DIK_W))
-		{
-			pdirection = PLAYER_DIRECTION::PLAYER_UP;
-			pstate = PLAYER_STATE::PLAYER_WALK;
-		}
-		if (Input::IsKey(DIK_S))
-		{
-			pdirection = PLAYER_DIRECTION::PLAYER_DOWN;
-			pstate = PLAYER_STATE::PLAYER_WALK;
-		}
 		if (Input::IsKey(DIK_D))
 		{
 			pdirection = PLAYER_DIRECTION::PLAYER_LEFT;

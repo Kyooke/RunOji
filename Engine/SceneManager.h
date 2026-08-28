@@ -5,7 +5,8 @@
 //ゲームに登場するシーン
 enum SCENE_ID
 {
-	SCENE_ID_TEST = 0,
+	SCENE_ID_TITLE = 0,
+	SCENE_ID_TEST = 1,
 };
 
 //-----------------------------------------------------------
@@ -31,5 +32,4 @@ public:
 private:
 	SCENE_ID currentSceneID_;	//現在のシーン
 	SCENE_ID nextSceneID_;		//次のシーン
-
 };

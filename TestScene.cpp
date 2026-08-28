@@ -17,17 +17,18 @@ TestScene::TestScene(GameObject * parent)
 
 //‰Šú‰»
 void TestScene::Initialize()
-{	
-	//pWp = Instantiate<Weapon>(this);
-	Player* pPlayer = Instantiate <Player>(this);
-	Ground* pGround = Instantiate<Ground>(this);
-	pPlayer->SetGround(pGround);
+{
+    Player* pPlayer = Instantiate<Player>(this);
+    Ground* pGround = Instantiate<Ground>(this);
+    pPlayer->SetGround(pGround);
 
-	Camera::SetPosition({ 0,10,-20 });
-	Camera::SetTarget({ 0,0,0 });
+    food_ = Instantiate<Food>(this);
 
-	pText_ = new Text;
-	pText_->Initialize();
+    Camera::SetPosition({ 0,15,-20 });
+    Camera::SetTarget({ 0,0,0 });
+
+    pText_ = new Text;
+    pText_->Initialize();
 }
 
 //XV

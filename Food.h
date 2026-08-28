@@ -34,7 +34,7 @@ public:
 private:
 	FoodType type_;
 	int hModel_;
-	int score_ = 0;
+	int score_;
 
 	std::vector<std::vector<int>>mapData_;
 	int mapWidth_;

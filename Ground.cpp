@@ -67,7 +67,7 @@ void Ground::Initialize()
 {
 	//transform_.scale_ = { 40, 1, 40 };
 	hGround = Model::Load("Ground2.fbx");
-	hBrock = Model::Load("Block.fbx");
+	hBrock = Model::Load("Bolock.fbx");
 }
 
 void Ground::Update()
@@ -76,6 +76,7 @@ void Ground::Update()
 
 void Ground::Draw()
 {
+	transform_.rotate_ = { -90.0f,0.0f,0.0f };
 	Model::SetTransform(hGround, transform_);
 	Model::Draw(hGround);
 	for (int j = 0;j < 10;j++)
@@ -86,7 +87,6 @@ void Ground::Draw()
 			{
 				Transform tr;
 				tr.position_ = { 10.0f - i * 2 - 2,.0f,j * 2 - 10.0f };
-
 				Model::SetTransform(hBrock, tr);
 				Model::Draw(hBrock);
 			}
