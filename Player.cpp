@@ -3,7 +3,7 @@
 #include "Engine/Debug.h"
 #include "TestScene.h"
 #include "Engine/Input.h"
-#include"Engine/SphereCollider.h"
+#include "Engine/SphereCollider.h"
 #include "Food.h"
 
 namespace
@@ -76,8 +76,12 @@ void Player::Update()
 	XMVECTOR pos = XMLoadFloat3(&transform_.position_);
 	XMVECTOR move = XMVectorSet(0, 0, 0, 0);
 
-	const float SPEED = 0.05f;
-	float Angle = transform_.rotate_.y;
+	float currentSpeed = 0.05f; 
+	if (speedUpTimer_ > 0.0f)
+	{
+		currentSpeed = 0.1f; 
+		speedUpTimer_ -= 1.0f; 
+	}
 
 	static float turnFrame = 0.0f;
 
@@ -121,8 +125,7 @@ void Player::Update()
 			t = 1.0f;
 		}
 		float nAngle = AdjustAngle(turnEndAngle - turnStartAngle);
-		Angle = turnStartAngle + nAngle * t;
-		transform_.rotate_.y = Angle;
+		transform_.rotate_.y = turnStartAngle + nAngle * t;
 
 		if (turnFrame >= TURN_FRAME)
 		{
@@ -138,7 +141,7 @@ void Player::Update()
 		transform_.rotate_.y = P_ANGLE[pdirection];
 	}
 
-	pos = pos + SPEED * move;
+	pos = pos + currentSpeed * move;
 	XMStoreFloat3(&transform_.position_, pos);
 	XMFLOAT3 wpos = transform_.position_;
 
@@ -152,7 +155,7 @@ void Player::Update()
 		{
 			if (gmap[mapZ][mapX] == 1)
 			{
-				pos = pos - SPEED * move;
+				pos = pos - currentSpeed * move;
 				XMStoreFloat3(&transform_.position_, pos);
 			}
 		}
@@ -182,5 +185,11 @@ void Player::OnCollision(GameObject* pTarget)
 	if (pTarget == nullptr)
 	{
 		return;
+	}
+
+	
+	if (pTarget->GetObjectName() == "PowerFood")
+	{
+		PowerUp(5.0f); 
 	}
 }

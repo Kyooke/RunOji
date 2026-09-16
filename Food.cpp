@@ -68,6 +68,11 @@ void Food::OnCollision(GameObject* pTarget)
 		if (player != nullptr)
 		{
 			player->AddScore(score_);
+
+			if (type_ == FOODTYPE_POWER)
+			{
+				player->PowerUp(5.0f); 
+			}
 		}
 
 		KillMe();
