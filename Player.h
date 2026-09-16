@@ -24,9 +24,15 @@ public:
 	//ŠJ•ú
 	void Release() override;
 	void SetGround(Ground* ground) { ground_ = ground; }
+
+	void AddScore(int s) { score_ += s; }
+	int GetScore() const { return score_; }
+	void OnCollision(GameObject* pTarget) override;
 private:
 	int hIdleModel_;
 	int hWalkModel_;
 	Ground* ground_;
+	int score_ = 0;
+	int oldState_ = -1;
 };
 

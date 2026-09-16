@@ -17,14 +17,14 @@ TestScene::TestScene(GameObject * parent)
 
 //‰Šú‰»
 void TestScene::Initialize()
-{	
-	//pWp = Instantiate<Weapon>(this);
-	Player* pPlayer = Instantiate <Player>(this);
+{
+	pPlayer = Instantiate<Player>(this);
+
 	Ground* pGround = Instantiate<Ground>(this);
 	pPlayer->SetGround(pGround);
 
-	Camera::SetPosition({ 0,10,-20 });
-	Camera::SetTarget({ 0,0,0 });
+	Camera::SetPosition({ 0, 10, -20 });
+	Camera::SetTarget({ 0, 0, 0 });
 
 	pText_ = new Text;
 	pText_->Initialize();
@@ -33,7 +33,7 @@ void TestScene::Initialize()
 //XV
 void TestScene::Update()
 {
-	 Score =food_->GetScore();
+	Score = pPlayer->GetScore();
 }
 
 //•`‰æ

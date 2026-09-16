@@ -30,11 +30,9 @@ Ground::Ground(GameObject* parent)
 	mapWidth_ = csvData.GetWidth();
 	mapHeight_ = csvData.GetHeight();
 
-	// 配列のサイズを確保
 	mapData_ = vector<vector<int>>(mapHeight_, vector<int>(mapWidth_, 0));
 	mapObj_ = vector<vector<int>>(mapHeight_, vector<int>(mapWidth_, 0));
 
-	// 1. CSV からデータの読み込み
 	for (int y = 0; y < mapHeight_; y++)
 	{
 		for (int x = 0; x < mapWidth_; x++)
@@ -43,11 +41,15 @@ Ground::Ground(GameObject* parent)
 		}
 	}
 
-	// 2. オブジェクト（Food）の生成ループ
-	for (int y = 0; y < mapHeight_; y++) 
+	for (int y = 0; y < mapHeight_; y++)
 	{
-		for (int x = 0; x < mapWidth_; x++) 
+		for (int x = 0; x < mapWidth_; x++)
 		{
+			if (mapData_[y][x] == 1)
+			{
+				continue;
+			}
+
 			Food* food = (Food*)Instantiate<Food>(this);
 			food->SetPosition({ 10.0f - x * 2 - 1, 0.0f, y * 2 - 9.0f });
 
@@ -55,7 +57,7 @@ Ground::Ground(GameObject* parent)
 			{
 				food->SetFoodType(FoodType::FOODTYPE_POWER);
 			}
-			if (mapData_[y][x] != 1 && mapData_[y][x] != 2)
+			else
 			{
 				food->SetFoodType(FoodType::FOODTYPE_NORMAL);
 			}
